@@ -1,20 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { db, type JournalEntry } from "../lib/db";
 
-type FilterType = "all" | "keep" | "letgo";
-
 // --- Icons ---
 
 const InkStroke = () => (
   <svg viewBox="0 0 120 8" style={{ width: "60px", height: "6px", opacity: 0.18 }}>
     <path d="M2 4 Q30 1 60 4 Q90 7 118 4" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-  </svg>
-);
-
-const QuoteIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.25 }}>
-    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z" />
-    <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z" />
   </svg>
 );
 
@@ -80,7 +71,7 @@ const styles = {
   headerTitle: {
     fontFamily: "'Cormorant Garamond', serif",
     fontWeight: 300,
-    fontSize: 38,
+    fontSize: 48,
     letterSpacing: "0.08em",
     color: "var(--black)",
     marginBottom: 6,
@@ -88,7 +79,7 @@ const styles = {
     animation: "fadeSlideDown 0.8s ease forwards",
   },
   headerSub: {
-    fontSize: 11,
+    fontSize: 13,
     letterSpacing: "0.25em",
     textTransform: "uppercase" as const,
     color: "var(--mid-gray)",
@@ -116,13 +107,13 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: 8,
-    fontSize: 12,
+    fontSize: 14,
     color: "var(--dark-gray)",
     letterSpacing: "0.04em",
   },
   statNum: {
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: 300,
     color: "var(--black)",
     lineHeight: 1,
@@ -143,9 +134,9 @@ const styles = {
   filterBtn: {
     background: "none",
     border: "none",
-    padding: "8px 18px",
+    padding: "10px 22px",
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: 12,
+    fontSize: 13,
     letterSpacing: "0.1em",
     textTransform: "uppercase" as const,
     color: "var(--mid-gray)",
@@ -162,8 +153,8 @@ const styles = {
   },
   card: {
     background: "var(--white)",
-    borderRadius: 12,
-    padding: "24px 24px 20px",
+    borderRadius: 14,
+    padding: "28px 28px 24px",
     boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03)",
     position: "relative" as const,
     transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -184,6 +175,7 @@ const styles = {
     height: 24,
     borderRadius: 3,
     opacity: 0.5,
+    background: "#2a2a2a",
   },
   cardHeader: {
     display: "flex",
@@ -195,7 +187,7 @@ const styles = {
     display: "inline-flex",
     alignItems: "center",
     gap: 6,
-    fontSize: 10,
+    fontSize: 11,
     letterSpacing: "0.18em",
     textTransform: "uppercase" as const,
     fontWeight: 500,
@@ -217,8 +209,8 @@ const styles = {
   },
   cardText: {
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: 18,
-    lineHeight: 1.65,
+    fontSize: 21,
+    lineHeight: 1.7,
     color: "var(--charcoal)",
     fontWeight: 400,
     marginBottom: 14,
@@ -234,7 +226,7 @@ const styles = {
     justifyContent: "space-between",
   },
   cardDate: {
-    fontSize: 11,
+    fontSize: 12,
     color: "var(--mid-gray)",
     letterSpacing: "0.04em",
   },
@@ -246,21 +238,21 @@ const styles = {
   },
   emptyTitle: {
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: 300,
     color: "var(--charcoal)",
     marginBottom: 8,
   },
   emptySub: {
-    fontSize: 13,
+    fontSize: 15,
     color: "var(--mid-gray)",
   },
   fab: {
     position: "fixed" as const,
     bottom: 28,
     right: "calc(50% - 240px)",
-    width: 52,
-    height: 52,
+    width: 56,
+    height: 56,
     borderRadius: "50%",
     background: "var(--black)",
     color: "var(--white)",
@@ -307,7 +299,7 @@ const styles = {
   },
   composeTitle: {
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 400,
     color: "var(--black)",
     display: "flex",
@@ -325,12 +317,12 @@ const styles = {
   },
   composeTextarea: {
     width: "100%",
-    minHeight: 120,
+    minHeight: 140,
     border: "1px solid var(--light-gray)",
-    borderRadius: 10,
-    padding: 16,
+    borderRadius: 12,
+    padding: 18,
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: 17,
+    fontSize: 19,
     lineHeight: 1.6,
     color: "var(--charcoal)",
     resize: "vertical" as const,
@@ -345,12 +337,12 @@ const styles = {
   },
   actionBtn: {
     flex: 1,
-    padding: "14px 20px",
+    padding: "16px 20px",
     border: "none",
-    borderRadius: 10,
+    borderRadius: 12,
     cursor: "pointer",
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: 13,
+    fontSize: 14,
     letterSpacing: "0.12em",
     textTransform: "uppercase" as const,
     fontWeight: 500,
@@ -420,8 +412,9 @@ export default function Journal() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [showCompose, setShowCompose] = useState(false);
   const [composeText, setComposeText] = useState("");
-  const [filter, setFilter] = useState<FilterType>("all");
+  // no filter needed — letgo entries are never saved
   const [fadeOutId, setFadeOutId] = useState<number | null>(null);
+  const [letGoTotal, setLetgoCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const loadEntries = async () => {
@@ -441,10 +434,14 @@ export default function Journal() {
 
   const addEntry = async (type: "keep" | "letgo") => {
     if (!composeText.trim()) return;
-    await db.entries.add({ text: composeText.trim(), type, createdAt: new Date() });
+    if (type === "keep") {
+      await db.entries.add({ text: composeText.trim(), type, createdAt: new Date() });
+    }
+    // letgo: don't save — just let it disappear
     setComposeText("");
     setShowCompose(false);
-    loadEntries();
+    setLetgoCount((c) => (type === "letgo" ? c + 1 : c));
+    if (type === "keep") loadEntries();
   };
 
   const removeEntry = (id: number) => {
@@ -456,9 +453,8 @@ export default function Journal() {
     }, 400);
   };
 
-  const filtered = filter === "all" ? entries : entries.filter((e) => e.type === filter);
-  const keepCount = entries.filter((e) => e.type === "keep").length;
-  const letgoCount = entries.filter((e) => e.type === "letgo").length;
+  const filtered = entries; // all kept entries (letgo entries are never stored)
+  const keepCount = entries.length;
 
   useEffect(() => {
     if (showCompose && textareaRef.current) textareaRef.current.focus();
@@ -486,46 +482,19 @@ export default function Journal() {
             <div style={styles.statDivider} />
             <div style={styles.statItem}>
               <WindIcon />
-              <span style={styles.statNum}>{letgoCount}</span>
+              <span style={styles.statNum}>{letGoTotal}</span>
               <span>released</span>
             </div>
-          </div>
-
-          {/* Filter tabs */}
-          <div style={styles.filterBar}>
-            {(["all", "keep", "letgo"] as const).map((key) => (
-              <button
-                key={key}
-                className="filter-btn"
-                style={{
-                  ...styles.filterBtn,
-                  ...(filter === key ? styles.filterBtnActive : {}),
-                }}
-                onClick={() => setFilter(key)}
-              >
-                {key === "all" ? "All" : key === "keep" ? "Kept" : "Let Go"}
-              </button>
-            ))}
           </div>
 
           {/* Cards / Empty */}
           {filtered.length === 0 ? (
             <div style={styles.emptyState}>
               <div style={{ marginBottom: 16, display: "flex", justifyContent: "center", opacity: 0.2 }}>
-                <FeatherIcon size={24} />
+                <FeatherIcon size={28} />
               </div>
-              <div style={styles.emptyTitle}>
-                {filter === "all"
-                  ? "เริ่มเขียนความคิดของคุณ"
-                  : filter === "keep"
-                  ? "ยังไม่มีสิ่งที่เก็บไว้"
-                  : "ยังไม่มีสิ่งที่ปล่อยไป"}
-              </div>
-              <div style={styles.emptySub}>
-                {filter === "all"
-                  ? "กดปุ่ม + เพื่อเริ่มต้น"
-                  : "เริ่มเขียนแล้วเลือกสิ่งที่ต้องการ"}
-              </div>
+              <div style={styles.emptyTitle}>เริ่มเขียนความคิดของคุณ</div>
+              <div style={styles.emptySub}>กดปุ่ม + เพื่อเริ่มต้น</div>
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -539,21 +508,10 @@ export default function Journal() {
                     animationDelay: `${i * 0.06}s`,
                   }}
                 >
-                  <div
-                    style={{
-                      ...styles.cardTypeBar,
-                      background: entry.type === "keep" ? "#2a2a2a" : "#9e9890",
-                    }}
-                  />
+                  <div style={styles.cardTypeBar} />
                   <div style={styles.cardHeader}>
-                    <span
-                      style={{
-                        ...styles.cardTag,
-                        color: entry.type === "keep" ? "var(--black)" : "var(--dark-gray)",
-                        background: entry.type === "keep" ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.03)",
-                      }}
-                    >
-                      {entry.type === "keep" ? <><AnchorIcon /> Keep</> : <><WindIcon /> Let Go</>}
+                    <span style={{ ...styles.cardTag, color: "var(--black)", background: "rgba(0,0,0,0.05)" }}>
+                      <AnchorIcon /> Kept
                     </span>
                     <button
                       className="card-delete-btn"
@@ -563,13 +521,7 @@ export default function Journal() {
                       <XIcon size={13} />
                     </button>
                   </div>
-                  <div
-                    style={{
-                      ...styles.cardText,
-                      ...(entry.type === "keep" ? styles.cardTextKeep : {}),
-                    }}
-                  >
-                    {entry.type === "letgo" && <QuoteIcon />}
+                  <div style={{ ...styles.cardText, ...styles.cardTextKeep }}>
                     {entry.text}
                   </div>
                   <div style={styles.cardFooter}>
