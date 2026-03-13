@@ -41,14 +41,7 @@ body {
   height: 100dvh;
   width: 100%;
   overflow: hidden;
-  max-width: 640px;
   margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-  #root {
-    max-width: 100%;
-  }
 }
 
 textarea {

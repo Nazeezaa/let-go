@@ -10,11 +10,11 @@ export default function LetGoButton({ visible, onLetGo }: Props) {
     <AnimatePresence>
       {visible && (
         <motion.button
-          className="px-10 py-3.5 border border-white/30 rounded-full text-white/90 bg-transparent text-[15px] font-light tracking-wider cursor-pointer hover:border-white/60 hover:bg-white/5 transition-all duration-300"
-          initial={{ opacity: 0, y: 8 }}
+          className="h-12 px-10 border border-[#444] rounded-full text-white bg-transparent text-sm tracking-wide cursor-pointer hover:border-[#888] hover:bg-white/5 transition-all duration-200 focus:outline-none"
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 8 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: 6 }}
+          transition={{ duration: 0.25 }}
           onClick={onLetGo}
         >
           ปล่อยไป

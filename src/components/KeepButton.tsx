@@ -10,11 +10,11 @@ export default function KeepButton({ visible, onKeep }: Props) {
     <AnimatePresence>
       {visible && (
         <motion.button
-          className="px-10 py-3.5 bg-white text-black rounded-full text-[15px] font-normal tracking-wider cursor-pointer hover:bg-white/90 transition-all duration-300"
-          initial={{ opacity: 0, y: 8 }}
+          className="h-12 px-10 bg-white text-black rounded-full text-sm font-normal tracking-wide cursor-pointer hover:bg-[#e5e5e5] transition-all duration-200 focus:outline-none"
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 8 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: 6 }}
+          transition={{ duration: 0.25 }}
           onClick={onKeep}
         >
           เก็บไว้

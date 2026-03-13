@@ -65,26 +65,26 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
   }, [hasText, dissolving, mode, text]);
 
   return (
-    <div className="h-full flex flex-col relative">
+    <div className="h-full flex flex-col relative max-w-[640px] mx-auto">
       {/* Header */}
-      <header className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
+      <header className="flex items-center justify-between px-5 pt-5 pb-2 shrink-0">
         <button
-          className="text-muted hover:text-white transition-colors p-1.5 -ml-1.5 cursor-pointer"
+          className="w-10 h-10 flex items-center justify-center text-[#666] hover:text-white transition-colors cursor-pointer rounded-full hover:bg-white/5"
           onClick={onBack}
           aria-label="กลับ"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </button>
 
-        <span className="text-muted text-[11px] tracking-[0.2em] uppercase font-light">
+        <span className="text-[#555] text-xs tracking-[0.15em] uppercase">
           {mode === "letgo" ? "ระบายทิ้ง" : "เก็บไว้"}
         </span>
 
         {mode === "keep" && onArchive ? (
           <button
-            className="text-muted hover:text-white transition-colors p-1.5 -mr-1.5 cursor-pointer"
+            className="w-10 h-10 flex items-center justify-center text-[#666] hover:text-white transition-colors cursor-pointer rounded-full hover:bg-white/5"
             onClick={onArchive}
             aria-label="Archive"
           >
@@ -94,19 +94,19 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
             </svg>
           </button>
         ) : (
-          <div className="w-8" />
+          <div className="w-10" />
         )}
       </header>
 
       {/* Writing area */}
-      <div className="flex-1 relative px-6 md:px-10 pb-4 overflow-hidden">
+      <div className="flex-1 relative px-8 pt-4 pb-2 overflow-hidden">
         <BreathingCircle visible={!hasText && !dissolving && !feedback} />
 
         <AnimatePresence>
           {dissolving && (
             <motion.div
-              className="absolute inset-0 px-6 md:px-10 pt-2 text-[17px] md:text-[19px] text-text whitespace-pre-wrap font-light"
-              style={{ lineHeight: 2 }}
+              className="absolute inset-0 px-8 pt-4 text-lg text-[#ccc] whitespace-pre-wrap"
+              style={{ lineHeight: 1.9 }}
               initial={{ opacity: 1 }}
               animate={{ opacity: 0, y: -20, filter: "blur(8px)" }}
               transition={{ duration: 2.5, ease: "easeOut" }}
@@ -119,8 +119,8 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
         {!dissolving && (
           <textarea
             ref={textareaRef}
-            className="w-full h-full bg-transparent text-white/90 resize-none text-[17px] md:text-[19px] font-light"
-            style={{ lineHeight: 2 }}
+            className="w-full h-full bg-transparent text-[#ddd] resize-none text-lg"
+            style={{ lineHeight: 1.9 }}
             placeholder="เขียนอะไรก็ได้..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -129,7 +129,7 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
       </div>
 
       {/* Action button */}
-      <div className="flex justify-center pb-10 pt-3 shrink-0">
+      <div className="flex justify-center py-6 shrink-0">
         {mode === "letgo" ? (
           <LetGoButton visible={hasText && !dissolving} onLetGo={handleAction} />
         ) : (
@@ -142,14 +142,14 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
         {feedback && (
           <motion.div
             className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <span className="text-white/50 text-base font-light tracking-wide">
-              {feedback}
-            </span>
+            <div className="bg-[#111] border border-[#333] rounded-xl px-6 py-3">
+              <span className="text-white/80 text-sm">{feedback}</span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
