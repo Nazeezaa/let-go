@@ -20,7 +20,7 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
   const hasText = text.trim().length > 0;
 
   useEffect(() => {
-    textareaRef.current?.focus();
+    setTimeout(() => textareaRef.current?.focus(), 100);
   }, []);
 
   useEffect(() => {
@@ -40,9 +40,7 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
 
   const showFeedback = (msg: string) => {
     setFeedback(msg);
-    setTimeout(() => {
-      setFeedback(null);
-    }, 1500);
+    setTimeout(() => setFeedback(null), 1800);
   };
 
   const handleAction = useCallback(async () => {
@@ -50,7 +48,6 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
 
     if (mode === "letgo") {
       setDissolving(true);
-      // Haptic feedback if supported
       if (navigator.vibrate) navigator.vibrate(50);
       setTimeout(() => {
         setText("");
@@ -70,52 +67,48 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
   return (
     <div className="h-full flex flex-col relative">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-2 shrink-0">
+      <header className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
         <button
-          className="text-secondary hover:text-white transition-colors text-2xl p-2 cursor-pointer"
+          className="text-muted hover:text-white transition-colors p-1.5 -ml-1.5 cursor-pointer"
           onClick={onBack}
           aria-label="กลับ"
         >
-          ←
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
         </button>
-        <span className="text-secondary text-xs tracking-widest uppercase">
+
+        <span className="text-muted text-[11px] tracking-[0.2em] uppercase font-light">
           {mode === "letgo" ? "ระบายทิ้ง" : "เก็บไว้"}
         </span>
+
         {mode === "keep" && onArchive ? (
           <button
-            className="text-secondary hover:text-white transition-colors p-2 cursor-pointer"
+            className="text-muted hover:text-white transition-colors p-1.5 -mr-1.5 cursor-pointer"
             onClick={onArchive}
             aria-label="Archive"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
             </svg>
           </button>
         ) : (
-          <div className="w-10" />
+          <div className="w-8" />
         )}
-      </div>
+      </header>
 
       {/* Writing area */}
-      <div className="flex-1 relative px-4 pb-4 overflow-hidden">
+      <div className="flex-1 relative px-6 md:px-10 pb-4 overflow-hidden">
         <BreathingCircle visible={!hasText && !dissolving && !feedback} />
 
         <AnimatePresence>
           {dissolving && (
             <motion.div
-              className="absolute inset-0 px-4 pt-2 text-lg leading-relaxed text-text whitespace-pre-wrap"
+              className="absolute inset-0 px-6 md:px-10 pt-2 text-[17px] md:text-[19px] text-text whitespace-pre-wrap font-light"
+              style={{ lineHeight: 2 }}
               initial={{ opacity: 1 }}
-              animate={{ opacity: 0, y: -30, filter: "blur(6px)" }}
+              animate={{ opacity: 0, y: -20, filter: "blur(8px)" }}
               transition={{ duration: 2.5, ease: "easeOut" }}
             >
               {text}
@@ -126,8 +119,8 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
         {!dissolving && (
           <textarea
             ref={textareaRef}
-            className="w-full h-full bg-transparent text-white resize-none text-lg md:text-xl leading-relaxed"
-            style={{ lineHeight: 1.8 }}
+            className="w-full h-full bg-transparent text-white/90 resize-none text-[17px] md:text-[19px] font-light"
+            style={{ lineHeight: 2 }}
             placeholder="เขียนอะไรก็ได้..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -136,7 +129,7 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
       </div>
 
       {/* Action button */}
-      <div className="flex justify-center pb-8 pt-2 shrink-0">
+      <div className="flex justify-center pb-10 pt-3 shrink-0">
         {mode === "letgo" ? (
           <LetGoButton visible={hasText && !dissolving} onLetGo={handleAction} />
         ) : (
@@ -149,12 +142,14 @@ export default function WritingPage({ mode, onBack, onArchive }: Props) {
         {feedback && (
           <motion.div
             className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.4 }}
           >
-            <span className="text-white/70 text-lg font-light">{feedback}</span>
+            <span className="text-white/50 text-base font-light tracking-wide">
+              {feedback}
+            </span>
           </motion.div>
         )}
       </AnimatePresence>

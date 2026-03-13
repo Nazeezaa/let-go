@@ -49,9 +49,9 @@ export default function Archive({ onBack }: Props) {
   };
 
   const previewText = (text: string) => {
-    const lines = text.split("\n").slice(0, 3);
+    const lines = text.split("\n").slice(0, 2);
     const preview = lines.join("\n");
-    return preview.length > 150 ? preview.slice(0, 150) + "..." : preview;
+    return preview.length > 120 ? preview.slice(0, 120) + "..." : preview;
   };
 
   if (selected) {
@@ -68,64 +68,70 @@ export default function Archive({ onBack }: Props) {
 
   return (
     <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-2 shrink-0">
+      <header className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
         <button
-          className="text-secondary hover:text-white transition-colors text-2xl p-2 cursor-pointer"
+          className="text-muted hover:text-white transition-colors p-1.5 -ml-1.5 cursor-pointer"
           onClick={onBack}
           aria-label="กลับ"
         >
-          ←
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
         </button>
-        <span className="text-secondary text-xs tracking-widest uppercase">
+        <span className="text-muted text-[11px] tracking-[0.2em] uppercase font-light">
           รายการที่เก็บ
         </span>
-        <div className="w-10" />
-      </div>
+        <div className="w-8" />
+      </header>
 
-      {/* Entry list */}
-      <div className="flex-1 overflow-y-auto px-4 pb-4">
+      {entries.length > 0 && (
+        <div className="px-5 pb-3">
+          <span className="text-muted text-[12px] font-light">
+            {entries.length} รายการ
+          </span>
+        </div>
+      )}
+
+      <div className="flex-1 overflow-y-auto px-5 pb-6">
         {entries.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-secondary text-sm">ยังไม่มีรายการ</p>
+          <div className="flex flex-col items-center justify-center h-full gap-2">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-muted/50">
+              <path d="M4 19.5A2.5 2.5 0 016.5 17H20" strokeLinecap="round" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+            </svg>
+            <p className="text-muted text-sm font-light">ยังไม่มีรายการ</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             <AnimatePresence>
-              {entries.map((entry) => (
+              {entries.map((entry, i) => (
                 <motion.div
                   key={entry.id}
-                  className="bg-[#111111] border border-border rounded-xl p-4 cursor-pointer hover:border-white/30 transition-colors"
-                  initial={{ opacity: 0, y: 10 }}
+                  className="bg-surface border border-border rounded-xl p-5 cursor-pointer transition-all duration-200 hover:border-border-hover"
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ delay: i * 0.03 }}
                   onClick={() => setSelected(entry)}
                 >
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <p className="text-secondary text-xs mb-2">
+                      <p className="text-muted text-[11px] mb-2 font-light">
                         {formatDate(entry.createdAt)}
                       </p>
-                      <p className="text-text text-sm leading-relaxed whitespace-pre-wrap break-words">
+                      <p className="text-text/80 text-[14px] leading-relaxed whitespace-pre-wrap break-words font-light">
                         {previewText(entry.text)}
                       </p>
                     </div>
                     <button
-                      className="text-secondary hover:text-red-400 transition-colors p-1 shrink-0 cursor-pointer"
+                      className="text-muted/40 hover:text-white/60 transition-colors p-1 shrink-0 cursor-pointer mt-0.5"
                       onClick={(e) => {
                         e.stopPropagation();
                         if (entry.id) handleDelete(entry.id);
                       }}
                       aria-label="ลบ"
                     >
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <path d="M18 6L6 18M6 6l12 12" />
                       </svg>
                     </button>
@@ -134,14 +140,13 @@ export default function Archive({ onBack }: Props) {
               ))}
             </AnimatePresence>
 
-            {/* Delete all */}
             {entries.length > 0 && (
-              <div className="pt-8 pb-4 text-center">
+              <div className="pt-10 pb-6 text-center">
                 <button
-                  className={`text-xs cursor-pointer transition-colors ${
+                  className={`text-[11px] cursor-pointer transition-colors font-light ${
                     confirmDeleteAll
-                      ? "text-red-400"
-                      : "text-secondary hover:text-red-400"
+                      ? "text-red-400/80"
+                      : "text-muted/50 hover:text-red-400/60"
                   }`}
                   onClick={handleDeleteAll}
                 >

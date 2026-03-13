@@ -8,11 +8,11 @@ export default function BreathingCircle({ visible }: Props) {
   return (
     <motion.div
       className="absolute inset-0 flex items-center justify-center pointer-events-none"
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: visible ? 1 : 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 1 }}
     >
-      <div className="breathing-circle w-24 h-24 rounded-full border border-white/40" />
+      <div className="breathing-circle w-20 h-20 rounded-full border border-white/20" />
     </motion.div>
   );
 }
