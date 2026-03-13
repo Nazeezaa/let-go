@@ -19,42 +19,44 @@ export default function EntryDetail({ entry, onBack, onDelete }: Props) {
   };
 
   return (
-    <motion.div
-      className="h-full flex flex-col"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
-    >
-      <header className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
-        <button
-          className="text-muted hover:text-white transition-colors p-1.5 -ml-1.5 cursor-pointer"
-          onClick={onBack}
-          aria-label="กลับ"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <span className="text-muted text-[11px] font-light">
-          {formatDate(entry.createdAt)}
-        </span>
-        <button
-          className="text-muted/50 hover:text-red-400/70 transition-colors p-1.5 -mr-1.5 text-[12px] cursor-pointer font-light"
-          onClick={onDelete}
-          aria-label="ลบ"
-        >
-          ลบ
-        </button>
-      </header>
+    <div className="h-full flex flex-col">
+      <motion.div
+        className="flex-1 flex flex-col bg-white m-3 md:m-5 rounded-2xl overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+      >
+        <header className="flex items-center justify-between px-5 pt-4 pb-2 shrink-0">
+          <button
+            className="w-10 h-10 flex items-center justify-center text-[#bbb] hover:text-black transition-colors cursor-pointer rounded-full hover:bg-black/5"
+            onClick={onBack}
+            aria-label="กลับ"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <span className="text-[#aaa] text-[11px]">
+            {formatDate(entry.createdAt)}
+          </span>
+          <button
+            className="w-10 h-10 flex items-center justify-center text-[#ccc] hover:text-red-400 transition-colors cursor-pointer rounded-full hover:bg-black/5 text-xs"
+            onClick={onDelete}
+            aria-label="ลบ"
+          >
+            ลบ
+          </button>
+        </header>
 
-      <div className="flex-1 overflow-y-auto px-6 md:px-10 py-6">
-        <p
-          className="text-text/85 text-[17px] md:text-[19px] whitespace-pre-wrap break-words font-light"
-          style={{ lineHeight: 2 }}
-        >
-          {entry.text}
-        </p>
-      </div>
-    </motion.div>
+        <div className="flex-1 overflow-y-auto px-7 md:px-10 py-6">
+          <p
+            className="text-[#333] text-[17px] md:text-[19px] whitespace-pre-wrap break-words"
+            style={{ lineHeight: 2 }}
+          >
+            {entry.text}
+          </p>
+        </div>
+      </motion.div>
+    </div>
   );
 }

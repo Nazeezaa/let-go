@@ -3,13 +3,6 @@
 @theme {
   --font-sans: "IBM Plex Sans Thai", "IBM Plex Sans", system-ui, sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
-  --color-bg: #000000;
-  --color-surface: #111111;
-  --color-text: #E5E5E5;
-  --color-secondary: #777777;
-  --color-muted: #555555;
-  --color-border: #222222;
-  --color-border-hover: #444444;
 }
 
 * {
@@ -27,11 +20,10 @@ html {
 body {
   min-height: 100%;
   min-height: -webkit-fill-available;
-  background-color: #000000;
-  color: #E5E5E5;
+  background-color: #F0F0F0;
+  color: #1a1a1a;
   font-family: "IBM Plex Sans Thai", "IBM Plex Sans", system-ui, sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.01em;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -45,15 +37,13 @@ body {
 }
 
 textarea {
-  caret-color: #FFFFFF;
+  caret-color: #1a1a1a;
   font-family: inherit;
-  font-weight: 300;
-  letter-spacing: 0.01em;
+  font-weight: 400;
 }
 
 textarea::placeholder {
-  color: #555555;
-  font-weight: 300;
+  color: #aaa;
 }
 
 textarea:focus {
@@ -61,24 +51,24 @@ textarea:focus {
 }
 
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 3px;
+  background: #ccc;
+  border-radius: 4px;
 }
 
 @keyframes breathe {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.15;
+    opacity: 0.12;
   }
   50% {
-    transform: scale(1.12);
-    opacity: 0.35;
+    transform: scale(1.1);
+    opacity: 0.25;
   }
 }
 

@@ -10,7 +10,7 @@ export default function KeepButton({ visible, onKeep }: Props) {
     <AnimatePresence>
       {visible && (
         <motion.button
-          className="h-12 px-10 bg-white text-black rounded-full text-sm font-normal tracking-wide cursor-pointer hover:bg-[#e5e5e5] transition-all duration-200 focus:outline-none"
+          className="h-12 px-8 bg-black text-white rounded-full text-sm font-medium cursor-pointer hover:bg-black/85 transition-colors focus:outline-none"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 6 }}

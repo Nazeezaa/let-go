@@ -4,8 +4,8 @@
   "description": "พื้นที่สำหรับความคิดของคุณ",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#F0F0F0",
+  "theme_color": "#F0F0F0",
   "icons": [
     {
       "src": "/icons/icon-192.png",

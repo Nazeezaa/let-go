@@ -16,7 +16,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-full w-full bg-bg">
+    <div className="h-full w-full bg-[#F0F0F0]">
       <AnimatePresence mode="wait">
         {screen === "landing" && (
           <motion.div

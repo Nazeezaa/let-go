@@ -12,7 +12,7 @@ export default function BreathingCircle({ visible }: Props) {
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 1 }}
     >
-      <div className="breathing-circle w-20 h-20 rounded-full border border-white/20" />
+      <div className="breathing-circle w-20 h-20 rounded-full border border-black/10" />
     </motion.div>
   );
 }
