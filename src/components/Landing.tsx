@@ -19,8 +19,8 @@ const fadeUp = {
 
 export default function Landing({ onSelect }: Props) {
   return (
-    <div className="h-full flex flex-col overflow-y-auto">
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 max-w-[520px] mx-auto w-full">
+    <div className="h-full flex flex-col items-center justify-center overflow-y-auto px-6 py-12">
+      <div className="w-full max-w-[520px]">
         <motion.div
           className="w-full"
           variants={container}
