@@ -18,8 +18,8 @@ const QuoteIcon = () => (
   </svg>
 );
 
-const FeatherIcon = ({ style }: { style?: React.CSSProperties }) => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.35, ...style }}>
+const FeatherIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.35 }}>
     <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
     <line x1="16" y1="8" x2="2" y2="22" />
     <line x1="17.5" y1="15" x2="9" y2="15" />
@@ -54,6 +54,366 @@ const PlusIcon = () => (
   </svg>
 );
 
+// --- Styles ---
+
+const styles = {
+  root: {
+    minHeight: "100vh",
+    background: "var(--off-white)",
+    fontFamily: "'DM Sans', 'IBM Plex Sans Thai', sans-serif",
+    color: "var(--charcoal)",
+    padding: "0 0 80px",
+    position: "relative" as const,
+    overflowX: "hidden" as const,
+  },
+  content: {
+    position: "relative" as const,
+    zIndex: 1,
+    maxWidth: 520,
+    margin: "0 auto",
+    padding: "0 20px",
+  },
+  header: {
+    padding: "48px 0 32px",
+    textAlign: "center" as const,
+  },
+  headerTitle: {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontWeight: 300,
+    fontSize: 38,
+    letterSpacing: "0.08em",
+    color: "var(--black)",
+    marginBottom: 6,
+    opacity: 0,
+    animation: "fadeSlideDown 0.8s ease forwards",
+  },
+  headerSub: {
+    fontSize: 11,
+    letterSpacing: "0.25em",
+    textTransform: "uppercase" as const,
+    color: "var(--mid-gray)",
+    fontWeight: 400,
+    opacity: 0,
+    animation: "fadeSlideDown 0.8s ease 0.15s forwards",
+  },
+  headerLine: {
+    width: 40,
+    height: 1,
+    background: "var(--mid-gray)",
+    margin: "16px auto 0",
+    opacity: 0,
+    animation: "fadeIn 1s ease 0.3s forwards",
+  },
+  statsBar: {
+    display: "flex",
+    justifyContent: "center",
+    gap: 32,
+    padding: "16px 0 24px",
+    opacity: 0,
+    animation: "fadeIn 0.8s ease 0.4s forwards",
+  },
+  statItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    fontSize: 12,
+    color: "var(--dark-gray)",
+    letterSpacing: "0.04em",
+  },
+  statNum: {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: 22,
+    fontWeight: 300,
+    color: "var(--black)",
+    lineHeight: 1,
+  },
+  statDivider: {
+    width: 1,
+    height: 20,
+    background: "var(--light-gray)",
+  },
+  filterBar: {
+    display: "flex",
+    justifyContent: "center",
+    gap: 4,
+    marginBottom: 28,
+    opacity: 0,
+    animation: "fadeIn 0.8s ease 0.5s forwards",
+  },
+  filterBtn: {
+    background: "none",
+    border: "none",
+    padding: "8px 18px",
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: 12,
+    letterSpacing: "0.1em",
+    textTransform: "uppercase" as const,
+    color: "var(--mid-gray)",
+    cursor: "pointer",
+    borderRadius: 100,
+    transition: "all 0.3s ease",
+    fontWeight: 400,
+  },
+  filterBtnActive: {
+    color: "var(--black)",
+    background: "var(--white)",
+    boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+    fontWeight: 500,
+  },
+  card: {
+    background: "var(--white)",
+    borderRadius: 12,
+    padding: "24px 24px 20px",
+    boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03)",
+    position: "relative" as const,
+    transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+    opacity: 0,
+    animation: "cardIn 0.5s ease forwards",
+    border: "1px solid rgba(0,0,0,0.03)",
+  },
+  cardFadeOut: {
+    opacity: 0,
+    transform: "translateY(-8px) scale(0.97)",
+    transition: "all 0.4s ease",
+  },
+  cardTypeBar: {
+    position: "absolute" as const,
+    top: 12,
+    left: 12,
+    width: 3,
+    height: 24,
+    borderRadius: 3,
+    opacity: 0.5,
+  },
+  cardHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 14,
+  },
+  cardTag: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    fontSize: 10,
+    letterSpacing: "0.18em",
+    textTransform: "uppercase" as const,
+    fontWeight: 500,
+    padding: "4px 10px",
+    borderRadius: 100,
+  },
+  cardDelete: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "var(--mid-gray)",
+    padding: 4,
+    borderRadius: 6,
+    transition: "all 0.2s",
+    opacity: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cardText: {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: 18,
+    lineHeight: 1.65,
+    color: "var(--charcoal)",
+    fontWeight: 400,
+    marginBottom: 14,
+    fontStyle: "italic" as const,
+  },
+  cardTextKeep: {
+    fontStyle: "normal" as const,
+    color: "var(--black)",
+  },
+  cardFooter: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  cardDate: {
+    fontSize: 11,
+    color: "var(--mid-gray)",
+    letterSpacing: "0.04em",
+  },
+  emptyState: {
+    textAlign: "center" as const,
+    padding: "64px 20px",
+    opacity: 0,
+    animation: "fadeIn 0.8s ease 0.3s forwards",
+  },
+  emptyTitle: {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: 22,
+    fontWeight: 300,
+    color: "var(--charcoal)",
+    marginBottom: 8,
+  },
+  emptySub: {
+    fontSize: 13,
+    color: "var(--mid-gray)",
+  },
+  fab: {
+    position: "fixed" as const,
+    bottom: 28,
+    right: "calc(50% - 240px)",
+    width: 52,
+    height: 52,
+    borderRadius: "50%",
+    background: "var(--black)",
+    color: "var(--white)",
+    border: "none",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    zIndex: 50,
+    opacity: 0,
+    animation: "fadeIn 0.6s ease 0.7s forwards",
+  },
+  fabOpen: {
+    transform: "rotate(45deg)",
+    background: "var(--charcoal)",
+  },
+  overlay: {
+    position: "fixed" as const,
+    inset: 0,
+    background: "rgba(26, 24, 22, 0.3)",
+    backdropFilter: "blur(8px)",
+    zIndex: 40,
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    animation: "fadeIn 0.25s ease",
+  },
+  composeCard: {
+    background: "var(--white)",
+    borderRadius: "20px 20px 0 0",
+    width: "100%",
+    maxWidth: 520,
+    padding: "28px 24px 32px",
+    boxShadow: "0 -8px 40px rgba(0,0,0,0.1)",
+    animation: "slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+  },
+  composeHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  composeTitle: {
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: 20,
+    fontWeight: 400,
+    color: "var(--black)",
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+  },
+  composeClose: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    color: "var(--mid-gray)",
+    padding: 4,
+    display: "flex",
+    transition: "color 0.2s",
+  },
+  composeTextarea: {
+    width: "100%",
+    minHeight: 120,
+    border: "1px solid var(--light-gray)",
+    borderRadius: 10,
+    padding: 16,
+    fontFamily: "'Cormorant Garamond', serif",
+    fontSize: 17,
+    lineHeight: 1.6,
+    color: "var(--charcoal)",
+    resize: "vertical" as const,
+    outline: "none",
+    background: "var(--off-white)",
+    transition: "border-color 0.3s, background 0.3s",
+  },
+  composeActions: {
+    display: "flex",
+    gap: 10,
+    marginTop: 18,
+  },
+  actionBtn: {
+    flex: 1,
+    padding: "14px 20px",
+    border: "none",
+    borderRadius: 10,
+    cursor: "pointer",
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: 13,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase" as const,
+    fontWeight: 500,
+    transition: "all 0.25s ease",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
+  keepBtn: {
+    background: "var(--black)",
+    color: "var(--white)",
+  },
+  letgoBtn: {
+    background: "var(--light-gray)",
+    color: "var(--dark-gray)",
+  },
+} as const;
+
+// --- CSS Variables + Keyframes injected once ---
+
+const cssVars = `
+  :root {
+    --white: #fafafa;
+    --off-white: #f3f2ef;
+    --light-gray: #e8e6e1;
+    --mid-gray: #b5b0a8;
+    --dark-gray: #6b6560;
+    --charcoal: #3a3632;
+    --black: #1a1816;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .card:hover .card-delete-btn { opacity: 1 !important; }
+  .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.05); transform: translateY(-1px); }
+  .card-delete-btn:hover { color: var(--charcoal); background: rgba(0,0,0,0.04); }
+  .filter-btn:hover { color: var(--charcoal); background: rgba(0,0,0,0.03); }
+  .fab-btn:hover { transform: scale(1.06); box-shadow: 0 6px 24px rgba(0,0,0,0.24); }
+  .fab-btn.open:hover { transform: rotate(45deg) scale(1.06); }
+  .compose-close:hover { color: var(--charcoal); }
+  .compose-textarea:focus { border-color: var(--mid-gray); background: var(--white); }
+  .action-btn-keep:hover:not(:disabled) { background: var(--charcoal); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .action-btn-letgo:hover:not(:disabled) { background: var(--mid-gray); color: white; transform: translateY(-1px); }
+  .action-btn-keep:disabled, .action-btn-letgo:disabled { opacity: 0.35; cursor: not-allowed; }
+  @media (max-width: 560px) {
+    .fab-btn { right: 24px !important; }
+  }
+`;
+
 // --- Main Component ---
 
 export default function Journal() {
@@ -64,7 +424,6 @@ export default function Journal() {
   const [fadeOutId, setFadeOutId] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Load entries from Dexie
   const loadEntries = async () => {
     const all = await db.entries.orderBy("createdAt").reverse().toArray();
     setEntries(all);
@@ -75,25 +434,14 @@ export default function Journal() {
   }, []);
 
   const formatDate = (date: Date) =>
-    new Intl.DateTimeFormat("th-TH", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    }).format(date);
+    new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short", year: "numeric" }).format(date);
 
   const formatTime = (date: Date) =>
-    new Intl.DateTimeFormat("th-TH", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
+    new Intl.DateTimeFormat("th-TH", { hour: "2-digit", minute: "2-digit" }).format(date);
 
   const addEntry = async (type: "keep" | "letgo") => {
     if (!composeText.trim()) return;
-    await db.entries.add({
-      text: composeText.trim(),
-      type,
-      createdAt: new Date(),
-    });
+    await db.entries.add({ text: composeText.trim(), type, createdAt: new Date() });
     setComposeText("");
     setShowCompose(false);
     loadEntries();
@@ -113,203 +461,187 @@ export default function Journal() {
   const letgoCount = entries.filter((e) => e.type === "letgo").length;
 
   useEffect(() => {
-    if (showCompose && textareaRef.current) {
-      textareaRef.current.focus();
-    }
+    if (showCompose && textareaRef.current) textareaRef.current.focus();
   }, [showCompose]);
 
   return (
-    <div className="min-h-screen pb-20">
-      <div className="relative z-1 max-w-[520px] mx-auto px-5">
-        {/* Header */}
-        <header className="pt-12 pb-8 text-center">
-          <h1 className="font-serif font-light text-[38px] tracking-[0.08em] text-[#1a1816] mb-1.5 anim-fade-slide-down">
-            let go.
-          </h1>
-          <p className="text-[11px] tracking-[0.25em] uppercase text-[#b5b0a8] font-normal anim-fade-slide-down" style={{ animationDelay: "0.15s" }}>
-            พื้นที่สำหรับความคิดของคุณ
-          </p>
-          <div className="w-10 h-px bg-[#b5b0a8] mx-auto mt-4 anim-fade-in" style={{ animationDelay: "0.3s" }} />
-        </header>
+    <>
+      <style>{cssVars}</style>
+      <div style={styles.root}>
+        <div style={styles.content}>
+          {/* Header */}
+          <header style={styles.header}>
+            <h1 style={styles.headerTitle}>let go.</h1>
+            <p style={styles.headerSub}>พื้นที่สำหรับความคิดของคุณ</p>
+            <div style={styles.headerLine} />
+          </header>
 
-        {/* Stats */}
-        <div className="flex justify-center gap-8 py-4 pb-6 anim-fade-in" style={{ animationDelay: "0.4s" }}>
-          <div className="flex items-center gap-2 text-xs text-[#6b6560] tracking-wide">
-            <AnchorIcon />
-            <span className="font-serif text-[22px] font-light text-[#1a1816] leading-none">{keepCount}</span>
-            <span>kept</span>
-          </div>
-          <div className="w-px h-5 bg-[#e8e6e1]" />
-          <div className="flex items-center gap-2 text-xs text-[#6b6560] tracking-wide">
-            <WindIcon />
-            <span className="font-serif text-[22px] font-light text-[#1a1816] leading-none">{letgoCount}</span>
-            <span>released</span>
-          </div>
-        </div>
-
-        {/* Filter tabs */}
-        <div className="flex justify-center gap-1 mb-7 anim-fade-in" style={{ animationDelay: "0.5s" }}>
-          {(["all", "keep", "letgo"] as const).map((key) => (
-            <button
-              key={key}
-              className={`px-[18px] py-2 rounded-full text-xs tracking-[0.1em] uppercase cursor-pointer border-none transition-all duration-300 ${
-                filter === key
-                  ? "text-[#1a1816] bg-[#fafafa] shadow-[0_1px_4px_rgba(0,0,0,0.06)] font-medium"
-                  : "text-[#b5b0a8] bg-transparent hover:text-[#3a3632] hover:bg-black/[0.03]"
-              }`}
-              onClick={() => setFilter(key)}
-            >
-              {key === "all" ? "All" : key === "keep" ? "Kept" : "Let Go"}
-            </button>
-          ))}
-        </div>
-
-        {/* Cards */}
-        {filtered.length === 0 ? (
-          <div className="text-center py-16 anim-fade-in" style={{ animationDelay: "0.3s" }}>
-            <div className="mb-4 opacity-20">
-              <FeatherIcon style={{ opacity: 1, width: 24, height: 24 }} />
+          {/* Stats */}
+          <div style={styles.statsBar}>
+            <div style={styles.statItem}>
+              <AnchorIcon />
+              <span style={styles.statNum}>{keepCount}</span>
+              <span>kept</span>
             </div>
-            <div className="font-serif text-[22px] font-light text-[#3a3632] mb-2">
-              {filter === "all"
-                ? "เริ่มเขียนความคิดของคุณ"
-                : filter === "keep"
-                ? "ยังไม่มีสิ่งที่เก็บไว้"
-                : "ยังไม่มีสิ่งที่ปล่อยไป"}
-            </div>
-            <div className="text-[13px] text-[#b5b0a8]">
-              {filter === "all"
-                ? "กดปุ่ม + เพื่อเริ่มต้น"
-                : "เริ่มเขียนแล้วเลือกสิ่งที่ต้องการ"}
+            <div style={styles.statDivider} />
+            <div style={styles.statItem}>
+              <WindIcon />
+              <span style={styles.statNum}>{letgoCount}</span>
+              <span>released</span>
             </div>
           </div>
-        ) : (
-          <div className="flex flex-col gap-3.5">
-            {filtered.map((entry, i) => (
-              <div
-                key={entry.id}
-                className={`bg-[#fafafa] rounded-xl px-6 py-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] border border-black/[0.03] relative transition-all duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.07),0_8px_24px_rgba(0,0,0,0.05)] hover:-translate-y-px anim-card-in group ${
-                  fadeOutId === entry.id ? "!opacity-0 !-translate-y-2 !scale-[0.97]" : ""
-                }`}
-                style={{ animationDelay: `${i * 0.06}s` }}
+
+          {/* Filter tabs */}
+          <div style={styles.filterBar}>
+            {(["all", "keep", "letgo"] as const).map((key) => (
+              <button
+                key={key}
+                className="filter-btn"
+                style={{
+                  ...styles.filterBtn,
+                  ...(filter === key ? styles.filterBtnActive : {}),
+                }}
+                onClick={() => setFilter(key)}
               >
-                {/* Type bar */}
-                <div
-                  className={`absolute top-3 left-3 w-[3px] h-6 rounded-full opacity-50 ${
-                    entry.type === "keep" ? "bg-[#2a2a2a]" : "bg-[#9e9890]"
-                  }`}
-                />
-
-                {/* Card header */}
-                <div className="flex items-center justify-between mb-3.5">
-                  <span
-                    className={`inline-flex items-center gap-1.5 text-[10px] tracking-[0.18em] uppercase font-medium px-2.5 py-1 rounded-full ${
-                      entry.type === "keep"
-                        ? "text-[#1a1816] bg-black/5"
-                        : "text-[#6b6560] bg-black/[0.03]"
-                    }`}
-                  >
-                    {entry.type === "keep" ? <><AnchorIcon /> Keep</> : <><WindIcon /> Let Go</>}
-                  </span>
-                  <button
-                    className="bg-transparent border-none cursor-pointer text-[#b5b0a8] p-1 rounded-md transition-all duration-200 opacity-0 group-hover:opacity-100 hover:text-[#3a3632] hover:bg-black/[0.04] flex items-center justify-center"
-                    onClick={() => entry.id && removeEntry(entry.id)}
-                  >
-                    <XIcon size={13} />
-                  </button>
-                </div>
-
-                {/* Card text */}
-                <div
-                  className={`font-serif text-[18px] leading-[1.65] mb-3.5 ${
-                    entry.type === "keep"
-                      ? "text-[#1a1816] not-italic"
-                      : "text-[#3a3632] italic"
-                  }`}
-                >
-                  {entry.type === "letgo" && <QuoteIcon />}
-                  {entry.text}
-                </div>
-
-                {/* Card footer */}
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-[#b5b0a8] tracking-wide">
-                    {formatDate(entry.createdAt)} · {formatTime(entry.createdAt)}
-                  </span>
-                  <InkStroke />
-                </div>
-              </div>
+                {key === "all" ? "All" : key === "keep" ? "Kept" : "Let Go"}
+              </button>
             ))}
+          </div>
+
+          {/* Cards / Empty */}
+          {filtered.length === 0 ? (
+            <div style={styles.emptyState}>
+              <div style={{ marginBottom: 16, display: "flex", justifyContent: "center", opacity: 0.2 }}>
+                <FeatherIcon size={24} />
+              </div>
+              <div style={styles.emptyTitle}>
+                {filter === "all"
+                  ? "เริ่มเขียนความคิดของคุณ"
+                  : filter === "keep"
+                  ? "ยังไม่มีสิ่งที่เก็บไว้"
+                  : "ยังไม่มีสิ่งที่ปล่อยไป"}
+              </div>
+              <div style={styles.emptySub}>
+                {filter === "all"
+                  ? "กดปุ่ม + เพื่อเริ่มต้น"
+                  : "เริ่มเขียนแล้วเลือกสิ่งที่ต้องการ"}
+              </div>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {filtered.map((entry, i) => (
+                <div
+                  key={entry.id}
+                  className="card"
+                  style={{
+                    ...styles.card,
+                    ...(fadeOutId === entry.id ? styles.cardFadeOut : {}),
+                    animationDelay: `${i * 0.06}s`,
+                  }}
+                >
+                  <div
+                    style={{
+                      ...styles.cardTypeBar,
+                      background: entry.type === "keep" ? "#2a2a2a" : "#9e9890",
+                    }}
+                  />
+                  <div style={styles.cardHeader}>
+                    <span
+                      style={{
+                        ...styles.cardTag,
+                        color: entry.type === "keep" ? "var(--black)" : "var(--dark-gray)",
+                        background: entry.type === "keep" ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0.03)",
+                      }}
+                    >
+                      {entry.type === "keep" ? <><AnchorIcon /> Keep</> : <><WindIcon /> Let Go</>}
+                    </span>
+                    <button
+                      className="card-delete-btn"
+                      style={styles.cardDelete}
+                      onClick={() => entry.id && removeEntry(entry.id)}
+                    >
+                      <XIcon size={13} />
+                    </button>
+                  </div>
+                  <div
+                    style={{
+                      ...styles.cardText,
+                      ...(entry.type === "keep" ? styles.cardTextKeep : {}),
+                    }}
+                  >
+                    {entry.type === "letgo" && <QuoteIcon />}
+                    {entry.text}
+                  </div>
+                  <div style={styles.cardFooter}>
+                    <span style={styles.cardDate}>{formatDate(entry.createdAt)} · {formatTime(entry.createdAt)}</span>
+                    <InkStroke />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* FAB */}
+        <button
+          className={`fab-btn ${showCompose ? "open" : ""}`}
+          style={{
+            ...styles.fab,
+            ...(showCompose ? styles.fabOpen : {}),
+          }}
+          onClick={() => setShowCompose(!showCompose)}
+        >
+          <PlusIcon />
+        </button>
+
+        {/* Compose Modal */}
+        {showCompose && (
+          <div
+            style={styles.overlay}
+            onClick={(e) => { if (e.target === e.currentTarget) setShowCompose(false); }}
+          >
+            <div style={styles.composeCard}>
+              <div style={styles.composeHeader}>
+                <span style={styles.composeTitle}>
+                  <FeatherIcon /> เขียนความคิดของคุณ
+                </span>
+                <button className="compose-close" style={styles.composeClose} onClick={() => setShowCompose(false)}>
+                  <XIcon size={18} />
+                </button>
+              </div>
+              <textarea
+                ref={textareaRef}
+                className="compose-textarea"
+                style={styles.composeTextarea}
+                value={composeText}
+                onChange={(e) => setComposeText(e.target.value)}
+                placeholder="สิ่งที่อยู่ในใจตอนนี้..."
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addEntry("keep");
+                }}
+              />
+              <div style={styles.composeActions}>
+                <button
+                  className="action-btn-letgo"
+                  style={{ ...styles.actionBtn, ...styles.letgoBtn }}
+                  disabled={!composeText.trim()}
+                  onClick={() => addEntry("letgo")}
+                >
+                  <WindIcon /> Let Go
+                </button>
+                <button
+                  className="action-btn-keep"
+                  style={{ ...styles.actionBtn, ...styles.keepBtn }}
+                  disabled={!composeText.trim()}
+                  onClick={() => addEntry("keep")}
+                >
+                  <AnchorIcon /> Keep
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
-
-      {/* FAB */}
-      <button
-        className={`fixed bottom-7 right-[calc(50%-240px)] w-[52px] h-[52px] rounded-full bg-[#1a1816] text-[#fafafa] border-none cursor-pointer flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.18)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-50 anim-fade-in hover:scale-105 hover:shadow-[0_6px_24px_rgba(0,0,0,0.24)] max-[560px]:right-6 ${
-          showCompose ? "rotate-45 bg-[#3a3632]" : ""
-        }`}
-        style={{ animationDelay: "0.7s" }}
-        onClick={() => setShowCompose(!showCompose)}
-      >
-        <PlusIcon />
-      </button>
-
-      {/* Compose Modal */}
-      {showCompose && (
-        <div
-          className="fixed inset-0 bg-[#1a1816]/30 backdrop-blur-sm z-40 flex items-end justify-center anim-fade-in"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setShowCompose(false);
-          }}
-        >
-          <div className="bg-[#fafafa] rounded-t-[20px] w-full max-w-[520px] px-6 pt-7 pb-8 shadow-[0_-8px_40px_rgba(0,0,0,0.1)] anim-slide-up">
-            {/* Compose header */}
-            <div className="flex items-center justify-between mb-5">
-              <span className="font-serif text-xl text-[#1a1816] flex items-center gap-2">
-                <FeatherIcon style={{ opacity: 0.5 }} />
-                เขียนความคิดของคุณ
-              </span>
-              <button
-                className="bg-transparent border-none cursor-pointer text-[#b5b0a8] p-1 flex transition-colors duration-200 hover:text-[#3a3632]"
-                onClick={() => setShowCompose(false)}
-              >
-                <XIcon size={18} />
-              </button>
-            </div>
-
-            {/* Textarea */}
-            <textarea
-              ref={textareaRef}
-              className="w-full min-h-[120px] border border-[#e8e6e1] rounded-[10px] p-4 font-serif text-[17px] leading-[1.6] text-[#3a3632] resize-y bg-[#f3f2ef] transition-all duration-300 focus:border-[#b5b0a8] focus:bg-[#fafafa]"
-              value={composeText}
-              onChange={(e) => setComposeText(e.target.value)}
-              placeholder="สิ่งที่อยู่ในใจตอนนี้..."
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) addEntry("keep");
-              }}
-            />
-
-            {/* Action buttons */}
-            <div className="flex gap-2.5 mt-[18px]">
-              <button
-                className="flex-1 py-3.5 px-5 border-none rounded-[10px] cursor-pointer text-[13px] tracking-[0.12em] uppercase font-medium transition-all duration-[250ms] flex items-center justify-center gap-2 bg-[#e8e6e1] text-[#6b6560] hover:bg-[#b5b0a8] hover:text-white hover:-translate-y-px disabled:opacity-35 disabled:cursor-not-allowed disabled:transform-none"
-                disabled={!composeText.trim()}
-                onClick={() => addEntry("letgo")}
-              >
-                <WindIcon /> Let Go
-              </button>
-              <button
-                className="flex-1 py-3.5 px-5 border-none rounded-[10px] cursor-pointer text-[13px] tracking-[0.12em] uppercase font-medium transition-all duration-[250ms] flex items-center justify-center gap-2 bg-[#1a1816] text-[#fafafa] hover:bg-[#3a3632] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)] disabled:opacity-35 disabled:cursor-not-allowed disabled:transform-none"
-                disabled={!composeText.trim()}
-                onClick={() => addEntry("keep")}
-              >
-                <AnchorIcon /> Keep
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
