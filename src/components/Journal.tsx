@@ -60,7 +60,7 @@ const styles = {
   content: {
     position: "relative" as const,
     zIndex: 1,
-    maxWidth: 520,
+    maxWidth: 600,
     margin: "0 auto",
     padding: "0 20px",
   },
@@ -71,7 +71,7 @@ const styles = {
   headerTitle: {
     fontFamily: "'Cormorant Garamond', serif",
     fontWeight: 300,
-    fontSize: 48,
+    fontSize: 64,
     letterSpacing: "0.08em",
     color: "var(--black)",
     marginBottom: 6,
@@ -79,7 +79,7 @@ const styles = {
     animation: "fadeSlideDown 0.8s ease forwards",
   },
   headerSub: {
-    fontSize: 13,
+    fontSize: 15,
     letterSpacing: "0.25em",
     textTransform: "uppercase" as const,
     color: "var(--mid-gray)",
@@ -88,7 +88,7 @@ const styles = {
     animation: "fadeSlideDown 0.8s ease 0.15s forwards",
   },
   headerLine: {
-    width: 40,
+    width: 48,
     height: 1,
     background: "var(--mid-gray)",
     margin: "16px auto 0",
@@ -113,7 +113,7 @@ const styles = {
   },
   statNum: {
     fontFamily: "'Cormorant Garamond', serif",
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 300,
     color: "var(--black)",
     lineHeight: 1,
@@ -232,7 +232,7 @@ const styles = {
   },
   emptyState: {
     textAlign: "center" as const,
-    padding: "64px 20px",
+    padding: "40px 20px",
     opacity: 0,
     animation: "fadeIn 0.8s ease 0.3s forwards",
   },
@@ -250,7 +250,7 @@ const styles = {
   fab: {
     position: "fixed" as const,
     bottom: 28,
-    right: "calc(50% - 240px)",
+    right: "calc(50% - 280px)",
     width: 56,
     height: 56,
     borderRadius: "50%",
@@ -286,7 +286,7 @@ const styles = {
     background: "var(--white)",
     borderRadius: "20px 20px 0 0",
     width: "100%",
-    maxWidth: 520,
+    maxWidth: 600,
     padding: "28px 24px 32px",
     boxShadow: "0 -8px 40px rgba(0,0,0,0.1)",
     animation: "slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
